@@ -1,11 +1,43 @@
+import { lineChartSchema } from "@/components/gen-ui/charts/line-chart";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-
+import { plotBarChartTool, plotLineChartTool } from "./tools/plots";
+import { barChartSchema } from "@/components/gen-ui/charts/bar-chart";
 const server = new McpServer({
   name: "custom-mcp-server",
   version: "0.0.1",
 });
+
+server.tool(
+  "plot_line_chart",
+  "Plot a line chart with the given data.",
+  lineChartSchema.shape,
+  async (params) => {
+    const result = await plotLineChartTool(params);
+    return {
+      content: result.content.map((item) => ({
+        ...item,
+        type: "text" as const,
+      })),
+    };
+  }
+);
+
+server.tool(
+  "plot_bar_chart",
+  "Plot a bar chart with the given data.",
+  barChartSchema.shape,
+  async (params) => {
+    const result = await plotBarChartTool(params);
+    return {
+      content: result.content.map((item) => ({
+        ...item,
+        type: "text" as const,
+      })),
+    };
+  }
+);
 
 server.tool(
   "get_weather",
@@ -16,7 +48,7 @@ server.tool(
   },
   async ({ latitude, longitude }) => {
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`
     );
     const data = await response.json();
     return {
@@ -31,7 +63,7 @@ server.tool(
         },
       ],
     };
-  },
+  }
 );
 
 const transport = new StdioServerTransport();

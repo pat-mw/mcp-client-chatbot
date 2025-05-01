@@ -8,6 +8,8 @@ import {
   type UIMessage,
 } from "ai";
 
+import { tools as rawTools } from "../../../../custom-mcp-server/tools";
+
 import {
   generateTitleFromUserMessageAction,
   rememberProjectInstructionsAction,
@@ -92,7 +94,7 @@ export async function POST(request: Request) {
 
     const systemPrompt = mergeSystemPrompt(
       SYSTEM_TIME_PROMPT,
-      projectInstructions?.systemPrompt,
+      projectInstructions?.systemPrompt
     );
 
     const isToolCallAllowed = !isToolCallUnsupportedModel(model) && activeTool;
@@ -163,13 +165,13 @@ export async function POST(request: Request) {
 
 function filterToolsByMentions(
   mentions: string[],
-  tools: Record<string, Tool>,
+  tools: Record<string, Tool>
 ) {
   if (mentions.length === 0) {
     return tools;
   }
   return objectFlow(tools).filter((_tool, key) =>
-    mentions.some((mention) => key.startsWith(mention)),
+    mentions.some((mention) => key.startsWith(mention))
   );
 }
 
@@ -186,7 +188,7 @@ function filterToolsByMentions(
 
 function appendAnnotations(
   annotations: any[] = [],
-  annotationsToAppend: ChatMessageAnnotation[] | ChatMessageAnnotation,
+  annotationsToAppend: ChatMessageAnnotation[] | ChatMessageAnnotation
 ): ChatMessageAnnotation[] {
   const newAnnotations = Array.isArray(annotationsToAppend)
     ? annotationsToAppend

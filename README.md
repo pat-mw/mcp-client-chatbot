@@ -46,14 +46,14 @@ Here are some quick examples of how you can use MCP Client Chatbot:
 Sample prompt:
 
 ```prompt
-Please go to GitHub and visit the cgoinglove profile.
+Please go to GitHub and visit the patlove profile.
 Open the mcp-client-chatbot project.
 Then, click on the README.md file.
 After that, close the browser.
 Finally, tell me how to install the package.
 ```
----
 
+---
 
 ### ⚡️ Quick Tool Mentions (`@`)
 
@@ -75,23 +75,21 @@ Add new MCP servers easily through the UI, and start using new tools without res
 
 ![tool-test](https://github.com/user-attachments/assets/980dd645-333f-4e5c-8ac9-3dc59db19e14)
 
-
 MCP tools independently from chat sessions for easier development and debugging.
 
 ---
 
-
 ## ✨ Key Features
 
-* **💻 100% Local Execution:** Run directly on your PC or server without complex deployment, fully utilizing and controlling your computing resources.
-* **🤖 Multiple AI Model Support:** Flexibly switch between providers like OpenAI, Anthropic, Google AI, and Ollama.
-* **🛠️ Powerful MCP Integration:** Seamlessly connect external tools (browser automation, database operations, etc.) into chat via Model Context Protocol.
-* **🚀 Standalone Tool Tester:** Test and debug MCP tools separately from the main chat interface.
-* **💬 Intuitive Mentions:** Trigger available tools with `@` in the input field.
-* **⚙️ Easy Server Setup:** Configure MCP connections via UI or `.mcp-config.json` file.
-* **📄 Markdown UI:** Communicate in a clean, readable markdown-based interface.
-* **💾 Zero-Setup Local DB:** Uses SQLite by default for local storage (PostgreSQL also supported).
-* **🧩 Custom MCP Server Support:** Modify the built-in MCP server logic or create your own.
+- **💻 100% Local Execution:** Run directly on your PC or server without complex deployment, fully utilizing and controlling your computing resources.
+- **🤖 Multiple AI Model Support:** Flexibly switch between providers like OpenAI, Anthropic, Google AI, and Ollama.
+- **🛠️ Powerful MCP Integration:** Seamlessly connect external tools (browser automation, database operations, etc.) into chat via Model Context Protocol.
+- **🚀 Standalone Tool Tester:** Test and debug MCP tools separately from the main chat interface.
+- **💬 Intuitive Mentions:** Trigger available tools with `@` in the input field.
+- **⚙️ Easy Server Setup:** Configure MCP connections via UI or `.mcp-config.json` file.
+- **📄 Markdown UI:** Communicate in a clean, readable markdown-based interface.
+- **💾 Zero-Setup Local DB:** Uses SQLite by default for local storage (PostgreSQL also supported).
+- **🧩 Custom MCP Server Support:** Modify the built-in MCP server logic or create your own.
 
 ## 🚀 Getting Started
 
@@ -110,7 +108,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to get started.
 
------
+---
 
 ### Environment Variables
 
@@ -124,7 +122,7 @@ OPENAI_API_KEY=****
 
 SQLite is the default DB (`db.sqlite`). To use PostgreSQL, set `USE_FILE_SYSTEM_DB=false` and define `DATABASE_URL` in `.env`.
 
------
+---
 
 ### MCP Server Setup
 
@@ -134,30 +132,30 @@ You can connect MCP tools via:
 2. **Direct File Edit:** Modify `.mcp-config.json` in project root.
 3. **Custom Logic:** Edit `./custom-mcp-server/index.ts` to implement your own logic.
 
------
+---
 
 ## 💡 Use Cases
 
-* [Supabase Integration](./docs/use-cases/supabase.md): Use MCP to manage Supabase DB, auth, and real-time features.
+- [Supabase Integration](./docs/use-cases/supabase.md): Use MCP to manage Supabase DB, auth, and real-time features.
 
------
+---
 
 ## 🗺️ Roadmap: Upcoming Features
 
 We're making MCP Client Chatbot even more powerful with these planned features:
 
-* **🎨 Canvas Mode:** Real-time editing interface for LLM + user collaboration (e.g. code, blogs).
-* **🧩 LLM UI Generation:** Let LLMs render charts, tables, forms dynamically.
-* **📜 Rule Engine:** Persistent system prompt/rules across the session.
-* **🖼️ Image & File Uploads:** Multimodal interaction via uploads and image generation.
-* **🐙 GitHub Mounting:** Mount local GitHub repos to ask questions and work on code.
-* **📚 RAG Agent:** Retrieval-Augmented Generation using your own documents.
-* **🧠 Planning Agent:** Smarter agent that plans and executes complex tasks.
-* **🧑‍💻 Agent Builder:** Tool to create custom AI agents for specific goals.
+- **🎨 Canvas Mode:** Real-time editing interface for LLM + user collaboration (e.g. code, blogs).
+- **🧩 LLM UI Generation:** Let LLMs render charts, tables, forms dynamically.
+- **📜 Rule Engine:** Persistent system prompt/rules across the session.
+- **🖼️ Image & File Uploads:** Multimodal interaction via uploads and image generation.
+- **🐙 GitHub Mounting:** Mount local GitHub repos to ask questions and work on code.
+- **📚 RAG Agent:** Retrieval-Augmented Generation using your own documents.
+- **🧠 Planning Agent:** Smarter agent that plans and executes complex tasks.
+- **🧑‍💻 Agent Builder:** Tool to create custom AI agents for specific goals.
 
 👉 See full roadmap in [ROADMAP.md](./docs/ROADMAP.md)
 
------
+---
 
 ## 🙌 Contributing
 
@@ -165,6 +163,4 @@ We welcome all contributions! Bug reports, feature ideas, code improvements — 
 
 Let’s build it together 🚀
 
-<img src="https://contrib.rocks/image?repo=cgoinglove/mcp-client-chatbot" />
-
-
+<img src="https://contrib.rocks/image?repo=patlove/mcp-client-chatbot" />

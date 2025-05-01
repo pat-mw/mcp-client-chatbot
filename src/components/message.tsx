@@ -10,9 +10,10 @@ import { Alert, AlertDescription, AlertTitle } from "ui/alert";
 import {
   UserMessagePart,
   AssistMessagePart,
-  ToolMessagePart,
   ReasoningPart,
 } from "./message-parts";
+import { ToolMessagePart } from "./tool-message";
+import { Badge } from "ui/badge";
 
 interface Props {
   message: UIMessage;
@@ -23,6 +24,7 @@ interface Props {
   className?: string;
 }
 
+const debugMode = false;
 const PurePreviewMessage = ({
   message,
   threadId,
@@ -37,7 +39,7 @@ const PurePreviewMessage = ({
       <div
         className={cn(
           className,
-          "flex gap-4 w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl",
+          "flex gap-4 w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl"
         )}
       >
         <div className="flex flex-col gap-4 w-full">
@@ -63,43 +65,70 @@ const PurePreviewMessage = ({
 
             if (part.type === "reasoning") {
               return (
-                <ReasoningPart
-                  key={key}
-                  reasoning={part.reasoning}
-                  isThinking={isLastPart && isLoading}
-                />
+                <div key={key} className="flex flex-col gap-2">
+                  {debugMode && (
+                    <div className="w-full flex items-center text-center">
+                      <Badge variant="outline">REASONING</Badge>
+                    </div>
+                  )}
+                  <ReasoningPart
+                    reasoning={part.reasoning}
+                    isThinking={isLastPart && isLoading}
+                  />
+                </div>
               );
             }
 
             if (isUserMessage && part.type === "text" && part.text) {
               return (
-                <UserMessagePart
-                  key={key}
-                  part={part}
-                  isLast={isLastPart}
-                  message={message}
-                  setMessages={setMessages}
-                  reload={reload}
-                />
+                <div key={key} className="flex flex-col gap-2">
+                  {debugMode && (
+                    <div className="w-full flex items-center text-center">
+                      <Badge variant="outline">USER MESSAGE</Badge>
+                    </div>
+                  )}
+                  <UserMessagePart
+                    part={part}
+                    isLast={isLastPart}
+                    message={message}
+                    setMessages={setMessages}
+                    reload={reload}
+                  />
+                </div>
               );
             }
 
             if (part.type === "text" && !isUserMessage) {
               return (
-                <AssistMessagePart
-                  threadId={threadId}
-                  key={key}
-                  part={part}
-                  isLast={isLastPart}
-                  message={message}
-                  setMessages={setMessages}
-                  reload={reload}
-                />
+                <div key={key} className="flex flex-col gap-2">
+                  {debugMode && (
+                    <div className="w-full flex items-center text-center">
+                      <Badge variant="outline">ASSIST MESSAGE</Badge>
+                    </div>
+                  )}
+                  <AssistMessagePart
+                    threadId={threadId}
+                    part={part}
+                    isLast={isLastPart}
+                    message={message}
+                    setMessages={setMessages}
+                    reload={reload}
+                  />
+                </div>
               );
             }
 
             if (part.type === "tool-invocation") {
-              return <ToolMessagePart key={key} part={part} />;
+              return (
+                <div key={key} className="flex flex-col gap-2">
+                  {debugMode && (
+                    <div className="w-full flex items-center text-center">
+                      <Badge variant="outline">TOOL INVOCATION</Badge>
+                    </div>
+                  )}
+                  <ToolMessagePart part={part} />
+                </div>
+              );
             }
           })}
         </div>
@@ -116,7 +145,7 @@ export const PreviewMessage = memo(
     if (prevProps.className !== nextProps.className) return false;
     if (!equal(prevProps.message.parts, nextProps.message.parts)) return false;
     return true;
-  },
+  }
 );
 
 export const ThinkingMessage = ({ className }: { className?: string }) => {
