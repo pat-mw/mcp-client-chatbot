@@ -14,6 +14,7 @@ import { PreviewMessage, ThinkingMessage } from "./message";
 import { Greeting } from "./greeting";
 import logger from "logger";
 import { useShallow } from "zustand/shallow";
+import { GenericMessage } from "./gen-ui/generic-message";
 
 type Props = {
   threadId: string;
@@ -31,7 +32,7 @@ export default function ChatBot({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [appStoreMutate, model, activeTool] = appStore(
-    useShallow((state) => [state.mutate, state.model, state.activeTool]),
+    useShallow((state) => [state.mutate, state.model, state.activeTool])
   );
 
   const {
@@ -65,7 +66,7 @@ export default function ChatBot({
 
   const isLoading = useMemo(
     () => status === "streaming" || status === "submitted",
-    [status],
+    [status]
   );
 
   const emptyMessage = useMemo(() => messages.length === 0, [messages.length]);
@@ -74,7 +75,7 @@ export default function ChatBot({
     () =>
       initialMessages.length > 0 &&
       initialMessages.at(-1)?.id === messages.at(-1)?.id,
-    [initialMessages, messages],
+    [initialMessages, messages]
   );
 
   const spaceClass = "min-h-[55dvh]";
@@ -86,7 +87,7 @@ export default function ChatBot({
       if (message.role === "user") return false;
       return true;
     },
-    [messages],
+    [messages]
   );
 
   useEffect(() => {
@@ -117,7 +118,7 @@ export default function ChatBot({
     <div
       className={cn(
         emptyMessage && "justify-center pb-24",
-        "flex flex-col min-w-0 relative h-full",
+        "flex flex-col min-w-0 relative h-full"
       )}
     >
       {emptyMessage ? (
@@ -129,10 +130,10 @@ export default function ChatBot({
             ref={containerRef}
           >
             {messages.map((message, index) => (
-              <PreviewMessage
-                threadId={threadId}
-                key={message.id}
+              <GenericMessage
+                key={`generic-message-${message.id}`}
                 message={message}
+                threadId={threadId}
                 isLoading={isLoading && messages.length - 1 === index}
                 setMessages={setMessages}
                 reload={reload}

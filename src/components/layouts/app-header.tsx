@@ -34,7 +34,7 @@ function ThreadDropdownComponent() {
       state.threadList,
       state.currentThreadId,
       state.projectList,
-    ]),
+    ])
   );
   const currentThread = useMemo(() => {
     return threadList.find((thread) => thread.id === currentThreadId);
@@ -42,7 +42,7 @@ function ThreadDropdownComponent() {
 
   const currentProject = useMemo(() => {
     return projectList.find(
-      (project) => project.id === currentThread?.projectId,
+      (project) => project.id === currentThread?.projectId
     );
   }, [currentThread, projectList]);
 
@@ -114,7 +114,7 @@ export function AppHeader() {
       </TooltipProvider>
       {componentByPage}
       <Link
-        href="https://github.com/cgoinglove/mcp-client-chatbot"
+        href="https://github.com/patlove/mcp-client-chatbot"
         target="_blank"
         className="ml-auto"
       >

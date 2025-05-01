@@ -15,13 +15,11 @@ import { Button } from "ui/button";
 import { Markdown } from "./markdown";
 import { PastesContentCard } from "./pasts-content";
 import { cn } from "lib/utils";
-import JsonView from "ui/json-view";
 import { useMemo, useState, memo } from "react";
 import { MessageEditor } from "./message-editor";
 import type { UseChatHelpers } from "@ai-sdk/react";
 import { useCopy } from "@/hooks/use-copy";
 
-import { Card, CardContent } from "ui/card";
 import { AnimatePresence, motion } from "framer-motion";
 import { SelectModel } from "./select-model";
 import { customModelProvider } from "lib/ai/models";
@@ -100,8 +98,8 @@ export const UserMessagePart = ({
             return (annotation as ChatMessageAnnotation).requiredTools ?? [];
           })
           .filter(Boolean)
-          .map((v) => `@${v}`),
-      ),
+          .map((v) => `@${v}`)
+      )
     );
   }, [message.annotations]);
 
@@ -159,7 +157,7 @@ export const UserMessagePart = ({
                   variant="ghost"
                   size="icon"
                   className={cn(
-                    "size-3! p-4! opacity-0 group-hover/message:opacity-100",
+                    "size-3! p-4! opacity-0 group-hover/message:opacity-100"
                   )}
                   onClick={() => copy(part.text)}
                 >
@@ -198,7 +196,7 @@ export const AssistMessagePart = ({
             return [...messages.slice(0, index)];
           }
           return messages;
-        }),
+        })
       )
       .ifOk(() =>
         reload({
@@ -207,7 +205,7 @@ export const AssistMessagePart = ({
             action: "update-assistant",
             id: threadId,
           },
-        }),
+        })
       )
       .ifFail((error) => toast.error(error.message))
       .watch(() => setIsLoading(false))
@@ -230,7 +228,7 @@ export const AssistMessagePart = ({
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "size-3! p-4! opacity-0 group-hover/message:opacity-100",
+                  "size-3! p-4! opacity-0 group-hover/message:opacity-100"
                 )}
                 onClick={() => copy(part.text)}
               >
@@ -252,7 +250,7 @@ export const AssistMessagePart = ({
                     variant="ghost"
                     size="icon"
                     className={cn(
-                      "size-3! p-4! opacity-0 group-hover/message:opacity-100",
+                      "size-3! p-4! opacity-0 group-hover/message:opacity-100"
                     )}
                   >
                     {<RefreshCw />}
@@ -263,72 +261,6 @@ export const AssistMessagePart = ({
             <TooltipContent>Change Model</TooltipContent>
           </Tooltip>
         </div>
-      )}
-    </div>
-  );
-};
-
-export const ToolMessagePart = ({ part }: ToolMessagePartProps) => {
-  const { toolInvocation } = part;
-  const { toolName, toolCallId, state } = toolInvocation;
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const isLoading = state !== "result";
-  return (
-    <div key={toolCallId} className="flex flex-col gap-2 group">
-      <div
-        className="flex flex-row gap-2 items-center cursor-pointer"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        <Button
-          variant="outline"
-          className={cn(
-            "flex flex-row gap-2 justify-between items-center text-muted-foreground min-w-44",
-            isLoading && "animate-pulse",
-          )}
-        >
-          <p className={cn("font-bold")}>{toolName}</p>
-          {isLoading ? (
-            <Loader className="size-3 animate-spin" />
-          ) : (
-            <ChevronDown
-              className={cn(
-                isExpanded && "rotate-180",
-                "transition-transform",
-                "size-4",
-              )}
-            />
-          )}
-        </Button>
-      </div>
-      {isExpanded && (
-        <Card className="relative mt-2 p-4 max-h-[50vh] overflow-y-auto bg-background">
-          <CardContent className="flex flex-row gap-4 text-sm ">
-            <div className="w-1/2 min-w-0 flex flex-col">
-              <div className="flex items-center gap-2 mb-2 pt-2 pb-1 bg-background z-10">
-                <h5 className="text-muted-foreground text-sm font-medium">
-                  Inputs
-                </h5>
-              </div>
-              <JsonView data={toolInvocation.args} />
-            </div>
-
-            <div className="w-1/2 min-w-0 pl-4 flex flex-col">
-              <div className="flex items-center gap-2 mb-4 pt-2 pb-1 bg-background z-10">
-                <h5 className="text-muted-foreground text-sm font-medium">
-                  Outputs
-                </h5>
-              </div>
-              <JsonView
-                data={
-                  toolInvocation.state === "result"
-                    ? toolInvocation.result
-                    : null
-                }
-              />
-            </div>
-          </CardContent>
-        </Card>
       )}
     </div>
   );

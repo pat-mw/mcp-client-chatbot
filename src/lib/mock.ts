@@ -10,9 +10,9 @@ import type { User } from "app-types/user";
  */
 export const getMockUserSession = (): User => {
   return {
-    id: "cgoing",
-    name: "cgoing",
-    email: "cgoing@gmail.com",
-    image: "https://github.com/cgoinglove.png",
+    id: "pat",
+    name: "pat",
+    email: "pat@gmail.com",
+    image: "https://github.com/patlove.png",
   };
 };
